@@ -13,8 +13,7 @@ Very fast, branchless software sqrt approximation for IEEE 754 floats with confi
 
 ## Usage
 
-'''c
-
+```c
 #include "fast_sqrt.h"
 
 float x = 123.456f;
