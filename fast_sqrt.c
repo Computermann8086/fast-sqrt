@@ -10,7 +10,7 @@ static inline float fast_sqrt(float n){
 
   nf = *(long*)&est;
   nf = (((nf >> 1) << 23) - 0x3F7A7EFA)^0x80000000U;
-  est = *(float*)&;
+  est = *(float*)&nf;
 
   float est_prev = est+2*PRECISION;
   int iter = 0;
