@@ -6,6 +6,8 @@ static inline float fast_sqrt(float n){
   }
 
   float est = n;
+  float n2 = n*0.5F; 
+  const float onenhalf = 1.5f;
   long nf;
 
   nf = *(long*)&est;
@@ -20,7 +22,8 @@ static inline float fast_sqrt(float n){
   int iter = 0;
   while(*(float*)&(long){(*(long*)&(float){est_prev-est})&~(1UL << 31)} > PRECISION && iter++ < ITER_MAX){  // the same as fabs(est_prev - est) but without the function call
     est_prev = est;
-    est = 0.5F*(est + (n/est));
+    //est = 0.5F*(est + (n/est)); // Normal Newton
+    est = (onenhalf - n2*est*est);
   }
-  return est;
+  return est*n;
 }
