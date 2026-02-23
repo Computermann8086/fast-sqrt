@@ -9,7 +9,11 @@ static inline float fast_sqrt(float n){
   long nf;
 
   nf = *(long*)&est;
-  nf = (((nf >> 1) << 23) - 0x3F7A7EFA)^0x80000000U;
+  /*
+  * Original Bit Hack
+  * nf = (((nf >> 1) << 23) - 0x3F7A7EFA)^0x80000000U;
+  */
+  nf = ((nf&~0x7F800000U | ((((int)((nf & 0x7F800000U) >> 23)-127)>>1) & 0xff)<<23)-0x3F7A7EFA)^0x80000000U; // I swear, this is just black magic at this point
   est = *(float*)&nf;
 
   float est_prev = est+2*PRECISION;
