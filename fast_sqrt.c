@@ -23,7 +23,7 @@ static inline float fast_sqrt(float n){
   while(*(float*)&(long){(*(long*)&(float){est_prev-est})&~(1UL << 31)} > PRECISION && iter++ < ITER_MAX){  // the same as fabs(est_prev - est) but without the function call
     est_prev = est;
     //est = 0.5F*(est + (n/est)); // Normal Newton
-    est = (onenhalf - n2*est*est);
+    est *= (onenhalf - n2*est*est);
   }
   return est*n;
 }
