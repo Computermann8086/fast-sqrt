@@ -1,4 +1,7 @@
 #include "fast_sqrt.h"
+#ifndef DPRECISION
+#define DPRECISION 2*PRECISION
+#endif
 
 static inline float fast_sqrt(float n){
   if(n <= 0){
@@ -26,7 +29,7 @@ static inline float fast_sqrt(float n){
 
   est = *(float*)&nf;
 
-  float est_prev = est+2*PRECISION;
+  float est_prev = est+DPRECISION;
   int iter = 0;
   while(*(float*)&(long){(*(long*)&(float){est_prev-est})&~(1UL << 31)} > PRECISION && iter++ < ITER_MAX){  // the same as fabs(est_prev - est) but without the function call
     est_prev = est;
